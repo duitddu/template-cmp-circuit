@@ -1,17 +1,17 @@
 [versions]
-agp = "8.7.3"
-androidx-activityCompose = "1.9.3"
+agp = "8.8.0"
+androidx-activityCompose = "1.10.0"
 androidx-lifecycle = "2.8.4"
 buildKonfig = "0.15.2"
 coil = "3.0.3"
 compose-adaptive = "1.0.1"
-compose-plugin = "1.7.1"
+compose-plugin = "1.7.3"
 kotlin = "2.1.0"
 kotlinx-coroutines = "1.9.0"
-koin = "4.1.0-Beta1"
+koin = "4.0.1"
 ksp = "2.1.0-1.0.29"
 ktor = "3.0.1"
-mockk = "1.13.13"
+mockk = "1.13.14"
 multiplatformSettings = "1.2.0"
 navigation-compose = "2.8.0-alpha10"
 okio = "3.9.1"
@@ -21,11 +21,10 @@ splashscreen = "1.0.1"
 android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
-circuit = "0.24.0"
+circuit = "0.25.0"
 
 [libraries]
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
@@ -63,8 +62,6 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = "circuit" }
 circuit-foundation = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuit" }
-circuit-codegen-annotation = { module = "com.slack.circuit:circuit-codegen-annotations", version.ref = "circuit" }
-circuit-codegen-ksp = { module = "com.slack.circuit:circuit-codegen", version.ref = "circuit" }
 circuitx-android = { module = "com.slack.circuit:circuitx-android", version.ref = "circuit" }
 
 [plugins]
