@@ -1,6 +1,7 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import java.util.regex.Pattern
 
 plugins {
@@ -47,7 +48,8 @@ kotlin {
             implementation(libs.coil.network.ktor)
             implementation(libs.bundles.ktor)
             implementation(libs.coil.compose)
-            api(libs.koin.core)
+            implementation(libs.koin.core)
+            api(libs.koin.annotations)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
@@ -90,6 +92,10 @@ kotlin {
 
         room {
             schemaDirectory("$projectDir/schemas")
+        }
+
+        sourceSets.named("commonMain").configure {
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
     }
 }
@@ -158,8 +164,24 @@ android {
     }
 }
 
+ksp {
+    arg("KOIN_CONFIG_CHECK", "true")
+    arg("KOIN_DEFAULT_MODULE", "false")
+}
+
 dependencies {
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+    add("kspAndroid", libs.koin.ksp.compiler)
+    add("kspIosX64", libs.koin.ksp.compiler)
+    add("kspIosArm64", libs.koin.ksp.compiler)
+    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
     debugImplementation(compose.uiTooling)
+}
+
+project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+    if(name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
 }
 
 // Ref: https://sujanpoudel.me/blogs/managing-configurations-for-different-environments-in-kmp/

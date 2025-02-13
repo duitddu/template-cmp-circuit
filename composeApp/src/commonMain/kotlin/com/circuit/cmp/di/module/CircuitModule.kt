@@ -1,31 +1,28 @@
 package com.circuit.cmp.di.module
 
-import com.circuit.cmp.di.factory.circuitPresenterFactory
-import com.circuit.cmp.di.factory.circuitUiFactory
+import com.circuit.cmp.di.factory.CircuitPresenterFactory
+import com.circuit.cmp.di.factory.CircuitUiFactory
 import com.slack.circuit.foundation.Circuit
-import com.circuit.cmp.presentation.feature.main.Main
-import com.circuit.cmp.presentation.feature.main.MainScreen
-import com.circuit.cmp.presentation.feature.main.MainPresenter
-import org.koin.dsl.module
+import com.slack.circuit.runtime.presenter.Presenter
+import com.slack.circuit.runtime.ui.Ui
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 
-val circuitModule = module {
-    circuitPresenterFactory { navigator, screen ->
-        when (screen) {
-            is MainScreen -> MainPresenter(screen, navigator)
-            else -> throw Exception("Invalid Screen Detected! :: $screen")
-        }
-    }
+@Module
+class CircuitModule {
+    @Factory(binds = [Presenter.Factory::class])
+    fun circuitPresenterFactoryComponent() = CircuitPresenterFactory()
 
-    circuitUiFactory { state, modifier ->
-        when (state) {
-            is MainScreen.State -> Main(state, modifier)
-        }
-    }
+    @Factory(binds = [Ui.Factory::class])
+    fun circuitUiFactoryComponent() =  CircuitUiFactory()
 
-    single {
-        Circuit.Builder()
-            .addUiFactories(getAll())
-            .addPresenterFactories(getAll())
-            .build()
-    }
+    @Single
+    fun circuit(
+        presenterFactory: CircuitPresenterFactory,
+        uiFactory: CircuitUiFactory
+    ) = Circuit.Builder()
+        .addPresenterFactory(presenterFactory)
+        .addUiFactory(uiFactory)
+        .build()
 }

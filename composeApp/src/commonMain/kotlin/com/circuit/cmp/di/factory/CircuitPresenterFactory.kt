@@ -1,28 +1,21 @@
 package com.circuit.cmp.di.factory
 
+import com.circuit.cmp.presentation.feature.main.MainPresenter
+import com.circuit.cmp.presentation.feature.main.MainScreen
 import com.slack.circuit.runtime.CircuitContext
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
-import org.koin.core.module.Module
-import org.koin.core.scope.Scope
 
-class CircuitPresenterFactory<P : Presenter<*>>(
-    private val factory: (Navigator, Screen) -> P
-) : Presenter.Factory {
+class CircuitPresenterFactory : Presenter.Factory {
     override fun create(
         screen: Screen,
         navigator: Navigator,
         context: CircuitContext
     ): Presenter<*> {
-        return factory(navigator, screen)
-    }
-}
-
-fun Module.circuitPresenterFactory(presenter: Scope.(Navigator, Screen) -> Presenter<*>) {
-    factory<Presenter.Factory> {
-        CircuitPresenterFactory { navigator, screen ->
-            presenter(navigator, screen)
+        return when (screen) {
+            is MainScreen -> MainPresenter(screen, navigator)
+            else -> throw Exception("Invalid Screen Detected! :: $screen")
         }
     }
 }
