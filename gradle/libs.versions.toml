@@ -1,5 +1,5 @@
 [versions]
-agp = "8.8.0"
+agp = "8.8.1"
 androidx-activityCompose = "1.10.0"
 androidx-lifecycle = "2.8.4"
 buildKonfig = "0.15.2"
@@ -10,7 +10,7 @@ kotlin = "2.1.0"
 kotlinx-coroutines = "1.9.0"
 koin = "4.0.1"
 koin-annotations = "2.0.0-RC1"
-ksp = "2.0.20-1.0.25"
+ksp = "2.1.0-1.0.29"
 ktor = "3.0.1"
 mockk = "1.13.14"
 multiplatformSettings = "1.2.0"
@@ -22,7 +22,12 @@ splashscreen = "1.0.1"
 android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
-circuit = "0.25.0"
+circuit = "0.26.1"
+
+kakao-sdk = "2.20.6"
+naver-login = "5.10.0"
+
+kmp-spm = "0.3.3"
 
 [libraries]
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -67,6 +72,9 @@ circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = 
 circuit-foundation = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuit" }
 circuitx-android = { module = "com.slack.circuit:circuitx-android", version.ref = "circuit" }
 
+kakao-user-v2 = { module = "com.kakao.sdk:v2-user", version.ref = "kakao-sdk" }
+naver-login = { module = "com.navercorp.nid:oauth", version.ref = "naver-login" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -78,6 +86,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kmp-spm = { id = "io.github.frankois944.spmForKmp", version.ref = "kmp-spm" }
 
 [bundles]
 ktor = [
@@ -88,6 +97,5 @@ ktor = [
 ]
 circuit = [
     "circuit-foundation",
-    "circuitx-android",
     "circuit-runtime"
 ]

@@ -1,5 +1,7 @@
 package com.circuit.cmp.di.factory
 
+import com.circuit.cmp.presentation.feature.login.LoginPresenter
+import com.circuit.cmp.presentation.feature.login.LoginScreen
 import com.circuit.cmp.presentation.feature.main.MainPresenter
 import com.circuit.cmp.presentation.feature.main.MainScreen
 import com.slack.circuit.runtime.CircuitContext
@@ -15,6 +17,7 @@ class CircuitPresenterFactory : Presenter.Factory {
     ): Presenter<*> {
         return when (screen) {
             is MainScreen -> MainPresenter(screen, navigator)
+            is LoginScreen -> LoginPresenter(screen, navigator)
             else -> throw Exception("Invalid Screen Detected! :: $screen")
         }
     }

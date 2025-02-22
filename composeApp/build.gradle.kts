@@ -1,7 +1,9 @@
+import io.github.frankois944.spmForKmp.definition.SwiftDependency
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+import java.net.URI
 import java.util.regex.Pattern
 
 plugins {
@@ -14,12 +16,13 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kmp.spm)
 }
 
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_11)
         }
     }
 
@@ -31,6 +34,12 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+        }
+
+        iosTarget.compilations {
+            val main by getting {
+                cinterops.create("nativeIosShared")
+            }
         }
     }
 
@@ -74,6 +83,9 @@ kotlin {
             implementation(libs.androidx.core.splashscreen)
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
+            implementation(libs.circuitx.android)
+            implementation(libs.kakao.user.v2)
+            implementation(libs.naver.login)
         }
 
         androidUnitTest.dependencies {
@@ -144,8 +156,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     flavorDimensions.add("variant")
@@ -201,6 +213,30 @@ buildkonfig {
 
     defaultConfigs("prod") {
 
+    }
+}
+
+swiftPackageConfig {
+    create("nativeIosShared") {
+        customPackageSourcePath = "../iosApp"
+        minIos = "15.0"
+
+        dependency(
+            SwiftDependency.Package.Remote.Version(
+                url = URI("https://github.com/kakao/kakao-ios-sdk"),
+                version = "2.23.0",
+                products = {
+                    add("KakaoSDK")
+                }
+            ),
+            SwiftDependency.Package.Remote.Version(
+                url = URI("https://github.com/naver/naveridlogin-sdk-ios-swift"),
+                version = "5.0.0",
+                products = {
+                    add("NidThirdPartyLogin")
+                }
+            ),
+        )
     }
 }
 

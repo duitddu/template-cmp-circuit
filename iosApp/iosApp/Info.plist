@@ -51,5 +51,38 @@
 		<key>UIColorName</key>
 		<string>BackgroundColor</string>
 	</dict>
+    <key>NidAppName</key>
+        <string>YOUR_NAVER_APP_NAME</string>
+    <key>NidClientID</key>
+        <string>YOUR_NAVER_CLIENT_ID</string>
+    <key>NidClientSecret</key>
+        <string>YOUR_NAVER_CLIENT_SECRET</string>
+    <key>NidUrlScheme</key>
+        <string>YOUR_NAVER_URL_SCHEME</string>
+    <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleURLName</key>
+                    <string>YOUR_NAVER_URL_SCHEME_NAME</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>YOUR_NAVER_URL_SCHEME</string>
+                </array>
+            </dict>
+            <dict>
+                <key>CFBundleURLName</key>
+                    <string>YOUR_KAKAO_URL_SCHEME_NAME</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>kakao-your-kakao-app-key://oauth</string>
+                </array>
+            </dict>
+        </array>
+    <key>LSApplicationQueriesSchemes</key>
+          <array>
+              <string>naversearchapp</string>
+              <string>naversearchthirdlogin</string>
+              <string>kakaokompassauth</string>
+          </array>
 </dict>
 </plist>

@@ -1,3 +1,5 @@
+import java.net.URI
+
 rootProject.name = "CircuitCMP"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -25,6 +27,7 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        maven { url = URI("https://devrepo.kakao.com/nexus/content/groups/public/") }
     }
 }
 

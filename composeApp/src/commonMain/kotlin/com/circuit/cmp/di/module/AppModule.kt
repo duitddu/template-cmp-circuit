@@ -8,7 +8,8 @@ import org.koin.ksp.generated.module
 
 @Module(
     includes = [
-        CircuitModule::class
+        CircuitModule::class,
+        SocialModule::class
     ]
 )
 @ComponentScan
@@ -21,7 +22,8 @@ fun initKoin(config: KoinAppDeclaration? = null) {
         config?.invoke(this)
         printLogger()
         modules(
-            AppModule().module
+            AppModule().module,
+            SocialModule().module
         )
     }
 }
